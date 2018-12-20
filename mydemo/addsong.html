@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #405689;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #505050;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<script>
+ window.onload = function() {
+ document.getElementById("submit").onclick = function f1(){
+ var x = document.forms["myForm"]["title"].value;
+ var Url = "https://soundcast.back4app.io/classes/songs_library";
+
+ var xhr = new XMLHttpRequest();
+  xhr.setRequestHeader("X-Parse-Application-Id", "VSPdpDKRMND382hqIRFIaiVLgbkhM0E1rL32l1SQ");
+xhr.setRequestHeader("X-Parse-REST-API-Key", "E4ZeObhQv3XoHaQ3Q6baHGgbDPOkuO9jPlY9gzgA");
+ xhr.open('POST', Url, true);
+ xhr.send(x);
+ xhr.onreadystatechange = processRequest;
+ function processRequest(e) {
+ if (xhr.readyState == 4 && xhr.status == 200) {
+ // alert(xhr.responseText.headers.Host);
+ var response1 = JSON.parse(xhr.responseText);
+ document.getElementById("title").innerHTML = response1.origin;
+ 
+ }
+ }
+ }
+ }
+</script>
+</head>
+<body>
+
+<h3>Add a Song</h3>
+
+<div>
+  <form name="myForm">
+    <label for="title">Enter title</label>
+    <input type="text" id="title" name="title" placeholder="Song Title">
+
+    <label for="lname">Upload Thumbnail</label>
+    <input type="file" id="thumbnail" name="uploadthumbnail" placeholder="Thumbnail">
+
+    <label for="country">Upload Song</label>
+        <input type="file" id="song" name="uploadsong" placeholder="Song">
+
+  
+    <input type="submit" onclick="f1()" name="submit" value="Submit">
+  </form>
+</div>
+
+</body>
+</html>
